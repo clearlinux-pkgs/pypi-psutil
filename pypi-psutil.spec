@@ -5,14 +5,13 @@
 #
 Name     : pypi-psutil
 Version  : 5.9.5
-Release  : 109
+Release  : 110
 URL      : https://files.pythonhosted.org/packages/d6/0f/96b7309212a926c1448366e9ce69b081ea79d63265bde33f11cc9cfc2c07/psutil-5.9.5.tar.gz
 Source0  : https://files.pythonhosted.org/packages/d6/0f/96b7309212a926c1448366e9ce69b081ea79d63265bde33f11cc9cfc2c07/psutil-5.9.5.tar.gz
 Summary  : Cross-platform lib for process and system monitoring in Python.
 Group    : Development/Tools
 License  : BSD-3-Clause
-Requires: pypi-psutil-filemap = %{version}-%{release}
-Requires: pypi-psutil-lib = %{version}-%{release}
+Requires: pypi-psutil-license = %{version}-%{release}
 Requires: pypi-psutil-python = %{version}-%{release}
 Requires: pypi-psutil-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
@@ -26,21 +25,12 @@ BuildRequires : python3-dev
 This directory contains scripts which are meant to be used internally
 (benchmarks, CI automation, etc.).
 
-%package filemap
-Summary: filemap components for the pypi-psutil package.
+%package license
+Summary: license components for the pypi-psutil package.
 Group: Default
 
-%description filemap
-filemap components for the pypi-psutil package.
-
-
-%package lib
-Summary: lib components for the pypi-psutil package.
-Group: Libraries
-Requires: pypi-psutil-filemap = %{version}-%{release}
-
-%description lib
-lib components for the pypi-psutil package.
+%description license
+license components for the pypi-psutil package.
 
 
 %package python
@@ -55,7 +45,6 @@ python components for the pypi-psutil package.
 %package python3
 Summary: python3 components for the pypi-psutil package.
 Group: Default
-Requires: pypi-psutil-filemap = %{version}-%{release}
 Requires: python3-core
 Provides: pypi(psutil)
 
@@ -75,15 +64,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1681776818
+export SOURCE_DATE_EPOCH=1683042820
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
@@ -99,6 +88,8 @@ popd
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/pypi-psutil
+cp %{_builddir}/psutil-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/pypi-psutil/22c73be3b1e9ed7ff986e83d92cc397033cb37d5 || :
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -116,17 +107,14 @@ popd
 %files
 %defattr(-,root,root,-)
 
-%files filemap
-%defattr(-,root,root,-)
-/usr/share/clear/filemap/filemap-pypi-psutil
-
-%files lib
-%defattr(-,root,root,-)
-/usr/share/clear/optimized-elf/other*
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/pypi-psutil/22c73be3b1e9ed7ff986e83d92cc397033cb37d5
 
 %files python
 %defattr(-,root,root,-)
 
 %files python3
 %defattr(-,root,root,-)
+/V3/usr/lib/python3*/*
 /usr/lib/python3*/*
