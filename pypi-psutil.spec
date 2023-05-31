@@ -5,7 +5,7 @@
 #
 Name     : pypi-psutil
 Version  : 5.9.5
-Release  : 110
+Release  : 111
 URL      : https://files.pythonhosted.org/packages/d6/0f/96b7309212a926c1448366e9ce69b081ea79d63265bde33f11cc9cfc2c07/psutil-5.9.5.tar.gz
 Source0  : https://files.pythonhosted.org/packages/d6/0f/96b7309212a926c1448366e9ce69b081ea79d63265bde33f11cc9cfc2c07/psutil-5.9.5.tar.gz
 Summary  : Cross-platform lib for process and system monitoring in Python.
@@ -16,6 +16,8 @@ Requires: pypi-psutil-python = %{version}-%{release}
 Requires: pypi-psutil-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
 BuildRequires : procps-ng
+BuildRequires : pypi(setuptools)
+BuildRequires : pypi(wheel)
 BuildRequires : python3-dev
 # Suppress stripping binaries
 %define __strip /bin/true
@@ -64,7 +66,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1683042820
+export SOURCE_DATE_EPOCH=1685551980
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
