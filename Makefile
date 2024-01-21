@@ -1,5 +1,5 @@
 PKG_NAME := pypi-psutil
-URL = https://files.pythonhosted.org/packages/a0/d0/c9ae661a302931735237791f04cb7086ac244377f78692ba3b3eae3a9619/psutil-5.9.7.tar.gz
+URL = https://files.pythonhosted.org/packages/90/c7/6dc0a455d111f68ee43f27793971cf03fe29b6ef972042549db29eec39a2/psutil-5.9.8.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
