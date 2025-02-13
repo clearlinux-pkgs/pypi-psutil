@@ -7,7 +7,7 @@
 #
 Name     : pypi-psutil
 Version  : 6.1.1
-Release  : 121
+Release  : 122
 URL      : https://files.pythonhosted.org/packages/1f/5a/07871137bb752428aa4b659f910b399ba6f291156bdea939be3e96cae7cb/psutil-6.1.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/1f/5a/07871137bb752428aa4b659f910b399ba6f291156bdea939be3e96cae7cb/psutil-6.1.1.tar.gz
 Summary  : Cross-platform lib for process and system monitoring in Python.
